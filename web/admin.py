@@ -3,5 +3,31 @@ from django.contrib import admin
 # Register your models here.
 from web.models import Expense,Income
 
-admin.site.register(Expense)
-admin.site.register(Income)
+class ExpenseAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('text',{'fields':['text']}),
+        ('Date',{'fields':['date']}),
+        ('amount',{'fields':['amount']}),
+        ('user',{'fields':['user']}),
+    ]
+    list_filter = ['date','amount','user']
+    list_display = ('text','amount','date')
+    list_per_page = 5
+    search_fields = ['text']
+
+
+class IncomeAdmin(admin.ModelAdmin):
+    fieldsets = [
+        ('text',{'fields':['text']}),
+        ('Date',{'fields':['date']}),
+        ('amount',{'fields':['amount']}),
+        ('user',{'fields':['user']}),
+    ]
+    list_filter = ['date','amount','user']
+    list_display = ('text','amount','date')
+    list_per_page = 5
+    search_fields = ['text']
+
+
+admin.site.register(Expense,ExpenseAdmin)
+admin.site.register(Income,IncomeAdmin)
